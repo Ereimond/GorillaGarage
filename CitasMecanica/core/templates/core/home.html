@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block background %}{% load static%}{% static 'core/img/imagen.jpg' %}{% endblock %}
+
+{% block content %}
+<h1>Pagina Inicio</h1>
+<style>
+    .card:hover{
+        scale: 1.1;
+    }
+</style>
+
+<div class="row align-items-center justify-content-center">
+{% for servicio in servicios %}
+<div class="col-sm mb-4">
+<div class="card" style="width: 18rem;">
+  <img src="{{servicio.imagen.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">{{servicio.titulo}}</p>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

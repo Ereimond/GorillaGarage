@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block title %}perfil{% endblock %}
+
+{% block content %}
+<h1>Pagina Inicio</h1>
+    <label>Direccion</label>
+    <p>{{profile.direccion}}</p>
+    <label>Telefono</label>
+    <p>{{profile.telefono}}</p>
+    <label>Fecha de Nacimiento</label>
+    <p>{{profile.fechanacimiento}}</p>
+    <label>Ocupacion</label>
+    <p>{{profile.ocupacion}}</p>
+
+{% endblock %}

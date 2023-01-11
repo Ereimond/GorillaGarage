@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <title>Iniciar Sesion</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link rel="shortcut icon" href="{% static 'core/img/login.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amaranth&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'core/css/menu.css' %}">
+
+<body>
+  {% load crispy_forms_tags %}
+  <div class="container w-75 bg-info mt-5 rounded-3 shadow">
+    <div class="row align-items-lg-stretch">
+      <div class="col bg d-none d-lg-block col-responsive rounded-3">
+        <style>
+          .bg {
+            background-image: url('{% static "core/img/base.png" %}');
+            background-position: center center;
+          }
+
+          .asteriskField {
+            display: none;
+          }
+        </style>
+      </div>
+      <div class="col bg-white p-5 rounded-end">
+        <h2 class="fw-bold text-center py-5">Bienvenidos</h2>
+
+        <!--Login-->
+        <form method="POST" class="mb-2">
+                                        {% csrf_token %}
+
+                                        <div class="mt-4">
+                                            <label for="inlineFormInputGroupUsername" class="form-label">Nombre
+                                                usuario</label>
+                                            {{ form.username }}
+                                        </div>
+                                        <div class="mt-4">
+                                            <label for="inputPassword4" class="form-label">Contraseña</label>
+                                            {{ form.password }}
+                                        </div>
+                                        <div class="text-end">
+                                            <p class="recup"><a class="txt" href="/password_reset/">¿Olvidó su
+                                                    contraseña?</a></p>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn1 btn-primary">Iniciar Sesión</button>
+                                        </div>
+                                        <div class="my-3">
+                      <span>¿No tienes cuenta? <a class="texto" href="{% url 'registrar' %}">Registrarse</a> <br></span>
+                  </div>
+                                    </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}perfil{% endblock %}
+
+{% block content %}
+<h1>Modificar Perfil</h1>
+<form method='post'> 
+{% csrf_token %}
+<div class='mb-3'>
+    <label>Nombre</label>
+    {{userform.first_name}}
+    </div>
+<div class='mb-3'>
+    <label>Apellido</label>
+    {{userform.last_name}}
+    </div>    
+<div class='mb-3'>
+    <label>Direccion</label>
+    {{profile.direccion}}
+    </div>
+    <div class='mb-3'>
+    <label>Telefono</label>
+    {{profile.telefono}}
+    </div>
+    <div class='mb-3'>
+    <label>Fecha de Nacimiento</label>
+    {{profile.fechanacimiento}}
+    </div>
+    <div class='mb-3'>
+    <label>Ocupacion</label>
+    {{profile.ocupacion}}
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

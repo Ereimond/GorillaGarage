@@ -1,0 +1,86 @@
+body{
+    background: #ffe259;
+    background: linear-gradient(to right, #c91111, #000000);
+    overflow: visible;
+}
+
+
+
+.texto {
+    text-decoration: none;
+    color: #173cb8;
+    font-weight: 600;
+}
+
+.texto:hover, .txt:hover {
+    color: #00218d;
+}
+
+.txt{
+    text-decoration: none;
+    color: #173cb8;
+    font-weight: 600;
+}
+
+.btn1{
+    border: none;
+    outline: none;
+    height: 40px;
+    width: 100%;
+    background-color: #00218d;
+    color: aliceblue;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn1:hover{
+    background-color: #0039f5;
+    color: white;
+    border: 1px solid;
+    transition: all 0.8s;
+}
+
+#boton1 {
+    border: #0039f5;
+    background-color: #0039f5;
+    color: aliceblue;
+    border-radius: 4px;
+}
+
+#boton1:hover{
+    background-color: #00218d;
+    color: white;
+    border: 1px solid;
+    transition: all 0.8s;
+}
+
+#boton2 {
+    border: #757677;
+    background-color: #757677;
+    color: aliceblue;
+    border-radius: 4px;
+}
+
+#boton2:hover{
+    background-color: #48494b;
+    color: white;
+    border: 1px solid;
+    transition: all 0.8s;
+}
+
+.form-check-input.is-valid:checked, .was-validated .form-check-input:valid:checked {
+    background-color: #1c23ab;
+}
+
+.form-check-input.is-valid, .was-validated .form-check-input:valid {
+    border-color: #1c23ab;
+}
+
+.recup {
+    text-align: end;
+}
+
+.container .row .col form #id_username, #id_password, #id_first_name, #id_last_name, #id_email, #id_password1, #id_password2{
+    width: 100%;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Registro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="shortcut icon" href="{% static 'core/img/login.png' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Amaranth&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'core/css/menu.css' %}">
+    <body>
+        {% load crispy_forms_tags %}
+        <div class="container w-75 bg-info mt-5 rounded-3 shadow">
+            <div class="row align-items-lg-stretch">
+              <div class="col bg d-none d-lg-block col-responsive rounded-3">
+                <style>
+                  .bg{
+                  background-image: url('{% static "core/img/base.png" %}');
+                  background-position: center center;
+                  }
+                  .form-text, .asteriskField{
+                    display: none;
+                  }
+                </style>
+              </div>
+              <div class="col bg-white p-5 rounded-end">
+                <h2 class="fw-bold text-center py-5">Registro</h2>
+          {% if form.errors %}
+                                        {% for field in form%}
+                                        {% if field.errors %}
+                                        {% for error in field.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error | escape }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endfor %}
+
+
+                                        {% if form.non_field_errors %}
+                                        {% for error in form.non_field_errors %}
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error | escape }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                <!-- Registro -->
+                <form action="#" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+            <div class="col-sm mb-4">
+              <label for="text" class="form-label font_color">Nombre:</label>
+              {{form.first_name}}
+            </div>
+            <div class="col-sm mb-4">
+              <label for="text" class="form-label font_color">Apellido:</label>
+              {{form.last_name}}
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="username" class="form-label font_color">Usuario:</label>
+            {{form.username}}
+          </div>
+          <div class="mb-4">
+            <label for="email" class="form-label font_color">E-mail:</label>
+            {{form.email}}
+          </div>
+          <div class="row">
+            <div class="col-sm mb-4">
+              <label for="password" class="form-label font_color">Contraseña:</label>
+              {{form.password1}}
+            </div>
+            <div class="col-sm mb-4">
+              <label for="confirm_password" class="form-label font_color">Confirmar Contraseña:</label>
+              {{form.password2}}
+            </div>
+          </div>
+          
+                  <div class="mb-4">
+                      <input type="checkbox" class="form-check-input  was-validated " name="connected">
+                      <label for="connected" class="form-check-label">Acepta nuestro terminos y condiciones</label>
+                  </div>
+          
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                      <button type="submit" class="btn btn-primary me-md-2" id="boton1">Guardar</button>
+                      <button type="reset" class="btn btn-secondary me-md-2" id="boton2">Cancelar</button>
+                  </div>
+                  <div class="my-3">
+                    <p>¿Ya tienes cuenta? <a class="texto" href="/login/">Iniciar Sesión</a> <br></p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+</html>
