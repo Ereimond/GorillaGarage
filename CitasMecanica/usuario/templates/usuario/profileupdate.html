@@ -1,35 +1,101 @@
 {% extends 'core/base.html' %}
 
-{% block title %}perfil{% endblock %}
+{% block title %}Modificar{% endblock %}
 
 {% block content %}
-<h1>Modificar Perfil</h1>
-<form method='post'> 
+<div class="container">
+    <h1>Modificar Perfil</h1>
+<form method='post' enctype="multipart/form-data"> 
 {% csrf_token %}
 <div class='mb-3'>
-    <label>Nombre</label>
+    <label>Nombre:</label>
     {{userform.first_name}}
     </div>
 <div class='mb-3'>
-    <label>Apellido</label>
+    <label>Apellido:</label>
     {{userform.last_name}}
     </div>    
 <div class='mb-3'>
-    <label>Direccion</label>
+    <label>Dirección:</label>
     {{profile.direccion}}
     </div>
     <div class='mb-3'>
-    <label>Telefono</label>
+    <label>Teléfono:</label>
     {{profile.telefono}}
     </div>
     <div class='mb-3'>
-    <label>Fecha de Nacimiento</label>
+    <label>Fecha de Nacimiento:</label>
     {{profile.fechanacimiento}}
-    </div>
+        {% if role == 'Cliente' %}
     <div class='mb-3'>
-    <label>Ocupacion</label>
+    <label>Ocupación:</label>
     {{profile.ocupacion}}
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    {% else %}
+</div><div class='mb-3'>
+    <label>Cargo:</label>
+    {{profile.cargo}}
+</div>
+</div><div class='mb-3'>
+    <label>Imagen:</label>
+    {{profile.imagen}}
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary botonAceptar">Guardar</button>
+    <a class="btn btn-secondary" href="{% url 'profileUser' %}" role="button">Regresar</a>
 </form>
+{% if form.errors or userform.errors %}
+                {% for field in profile %}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <script>
+                    $.alert({
+                        title: '',
+                        theme:'material',
+                        type: 'red',
+                        content: '{{ error | escape }}'
+                    });
+                </script>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+                {% for field in userform %}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <script>
+                    $.alert({
+                        title: '',
+                        theme:'material',
+                        type: 'red',
+                        content: '{{ error | escape }}'
+                    });
+                </script>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+                {% if profile.non_field_errors or userform.non_field_errors %}
+                {% for error in profile.non_field_errors %}
+                    <script>
+                        $.alert({
+                            title: '¡Importante!',
+                            theme:'material',
+                            type: '#fffff',
+                            content: '{{ error | escape }}'
+                        });
+                </script>
+                {% endfor %}
+                {% for error in userform.non_field_errors %}
+                    <script>
+                        $.alert({
+                            title: '¡Importante!',
+                            theme:'material',
+                            type: '#fffff',
+                            content: '{{ error | escape }}'
+                        });
+                </script>
+                {% endfor %}
+                {% endif %}
+            {% endif %}
+</div>
 {% endblock %}

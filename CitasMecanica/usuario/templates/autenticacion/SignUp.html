@@ -1,0 +1,98 @@
+{% extends 'autenticacion/base.html' %} 
+
+{% block title %}Registro{% endblock title %} 
+
+{% block form %}
+<div class="col bg-white p-5 rounded-end">
+  <h2 class="fw-bold text-center pb-4">Registro</h2>
+  {% if form.errors %}
+                {% for field in form %}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <script>
+                    $.alert({
+                        title: '',
+                        theme:'material',
+                        type: 'red',
+                        content: '{{ error | escape }}'
+                    });
+                </script>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <script>
+                        $.alert({
+                            title: '¡Importante!',
+                            theme:'material',
+                            type: 'red',
+                            content: '{{ error | escape }}'
+                        });
+                </script>
+                {% endfor %}
+                {% endif %}
+            {% endif %}
+  <!-- Registro -->
+  <form action="#" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-sm mb-4">
+        <label for="text" class="form-label font_color">Nombre:</label>
+        {{form.first_name}}
+      </div>
+      <div class="col-sm mb-4">
+        <label for="text" class="form-label font_color">Apellido:</label>
+        {{form.last_name}}
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="username" class="form-label font_color">Usuario:</label>
+      {{form.username}}
+    </div>
+    <div class="mb-4">
+      <label for="email" class="form-label font_color"
+        >Correo Electrónico:</label
+      >
+      {{form.email}}
+    </div>
+    <div class="row">
+      <div class="col-sm mb-4">
+        <label for="password" class="form-label font_color">Contraseña:</label>
+        {{form.password1}}
+      </div>
+      <div class="col-sm mb-4">
+        <label for="confirm_password" class="form-label font_color"
+          >Confirmar Contraseña:</label
+        >
+        {{form.password2}}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        type="checkbox"
+        class="form-check-input was-validated"
+        name="connected"
+        required=""
+      />
+      <label for="connected" class="form-check-label"
+        >Acepta nuestro terminos y condiciones</label
+      >
+    </div>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn1 btn-primary">Registrarse</button>
+    </div>
+    <div class="my-3">
+      <p>
+        ¿Ya tienes cuenta?
+        <a class="texto" href="{% url 'SignIn' %}">Iniciar Sesión</a> <br />
+      </p>
+    </div>
+  </form>
+</div>
+
+{% endblock form %}

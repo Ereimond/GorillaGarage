@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Mecanicos{% endblock %}
+
+{% load static %}
+{% block content %}
+<div class="container-xxl">
+    <h1>Mecánicos</h1>
+    <div class="row gx-4 row-cols-md-3 row-cols-xl-4">
+        {% for mecanico in mecanico %}
+        {% if mecanico.telefono != null %}
+            <div class="col ms-md-4">
+                <div class="card" style="width: 18rem;">
+                    {% if not mecanico.imagen %}
+                    {% else %}
+                    <img src="{{ mecanico.imagen.url }}" class="card-img-top" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">{{mecanico.user.first_name}} {{mecanico.user.last_name}}</h5>
+                        <p class="card-text mt-2">{{mecanico.direccion}}</p>
+                        <p class="card-text mt-2">{{mecanico.telefono}}</p>
+                        <p class="card-text mt-2">{{mecanico.cargo}}</p>                        
+                    </div>
+                </div>
+            </div>
+            
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

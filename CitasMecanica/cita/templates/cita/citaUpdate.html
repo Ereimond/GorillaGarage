@@ -1,0 +1,187 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Citas{% endblock %}
+
+{% block content %}
+<div class="container-xxl">
+    <h1 class="mb-3">Modificar Cita </h1>
+    
+    <div class="">
+        <form method='post' class="pb-5">
+            {% csrf_token %}
+            <input type="hidden" name="{{form.cliente.name}}" value="{{ profile.user.id }}">
+            <div class="container-fluid border bloque mt-4">
+                <div style='height:20px;'>
+                    <p
+                        style="color: #b1b4b8; margin-top:-12px; width: 55px; margin-left:15px; font-size:15px; background:white;">
+                        Cliente
+                    </p>
+                </div>
+                <div class="row ps-3 pe-3 pb-4">
+                    <div class="col-sm-6 mt-2">
+                        <label>Nombre: </label>
+                        <input class="form-control" type="text" value="{{ profile.user.first_name }}">
+                    </div>
+                    <div class="col-sm-6 mt-2">
+                        <label>Apellido:</label>
+                        <input class="form-control" type="text" value="{{ profile.user.last_name }}">
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <label>Correo eletrónico:</label>
+                        <input class="form-control" type="email" value="{{ profile.user.email }}">
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <label>Telefono:</label>
+                        <input class="form-control" type="text" value="{{ profile.telefono }}">
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="{{form.vehiculo.name}}" id="idVehiculo" value="{{form.vehiculo.value}}">
+            <div class="container-fluid border bloque mt-5">
+                <div style='height:20px;'>
+                    <p
+                        style="color: #b1b4b8; margin-top:-12px; width: 55px; margin-left:15px; font-size:15px; background:white;">
+                        Vehículo 
+                    </p>
+                </div>
+                <div class="row ps-3 pe-3 pb-4">
+                    <div class="divsobre">
+                        <div class="sobre">
+                            <button type="button" class="btn btn-primary botonAceptar btn-sm" data-bs-toggle="modal" data-bs-target="#Vehiculo">
+                                Añadir Vehículo
+                              </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mt-2">
+                        <label>Placa:</label>
+                        <input class="form-control" type="text" value="" id="vehiculoPlaca">
+                    </div>
+                    <div class="col-sm-6 mt-2">
+                        <label>Marca:</label>
+                        <input class="form-control" type="text" value="" id="vehiculoMarca">
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <label>Modelo:</label>
+                        <input class="form-control" type="text" value="" id="vehiculoModelo">
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <label>Año de Fabricación:</label>
+                        <input class="form-control" type="date" value="" id="vehiculoAnio">
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" class="form-control" name="{{form.mecanico.name}}" id="idMecanico" value="{{form.mecanico.value}}">
+            <div class="container-fluid border bloque mt-5">
+                <div style='height:20px;'>
+                    <p
+                        style="color: #b1b4b8; margin-top:-12px; width: 75px; margin-left:15px; font-size:15px; background:white;">
+                        Mecánico
+                    </p>
+                </div>
+                <div class="row ps-3 pe-3 pb-4">
+                    <div class="divsobre">
+                        <div class="sobre">
+                            <button type="button" class="btn btn-primary botonAceptar btn-sm" data-bs-toggle="modal" data-bs-target="#Mecanico">
+                                Añadir Mecánico
+                              </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mt-2">
+                        <label>Nombre:</label>
+                        <input class="form-control" type="text" id="nombreMecanico">
+                    </div>
+                    <div class="col-sm-6 mt-2">
+                        <label>Apellido:</label>
+                        <input class="form-control" type="text" id="apellidoMecanico">
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <label>Correo eletrónico:</label>
+                        <input class="form-control" type="email" id="emailMecanico">
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <label>Teléfono:</label>
+                        <input class="form-control" type="text" id="telefonoMecanico">
+                    </div>
+                    <div class="col-sm-12 mt-3">
+                        <label>Cargo:</label>
+                        <input class="form-control" type="text"  id="cargoMecanico">
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid border bloque mt-5">
+                <div style='height:20px;'>
+                    <p
+                        style="color: #b1b4b8; margin-top:-12px; width: 165px; margin-left:15px; font-size:15px; background:white;">
+                        Información de la Cita
+                    </p>
+                </div>
+                <div class="row ps-3 pe-3 pb-4">
+                    <div class="col-sm-6 mt-2">
+                        <label>Descripción:</label>
+                        {{form.descripcion}}
+                    </div>
+                    <div class="col-sm-6 mt-2">
+                        <label>Fecha de Entrega:</label>
+                        {{form.entrega}}
+                    </div>
+                </div>
+            </div>
+            
+            <a class="btn btn-secondary" href="{% url 'vehiculo' %}" role="button">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        
+              
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block modales %}
+{% include 'cita/modalMecanico.html' %}
+{% include 'cita/modalVehiculo.html' %}
+{% endblock modales %}
+
+{% block js %}
+<script>
+
+var date = new Date(`{{vehiculo.anovehiculo|date:'Y/m/d'}}`),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+        document.getElementById('vehiculoPlaca').value = '{{vehiculo.placa}}';
+        document.getElementById('vehiculoMarca').value = '{{vehiculo.marca}}';
+        document.getElementById('vehiculoModelo').value = '{{vehiculo.modelo}}';
+        document.getElementById("vehiculoAnio").value = [date.getFullYear(), mnth, day].join("-");
+
+        document.getElementById('nombreMecanico').value = '{{mecanico.user.first_name}}';
+        document.getElementById('apellidoMecanico').value = '{{mecanico.user.last_name}}';
+        document.getElementById('emailMecanico').value = '{{mecanico.user.email}}';
+        document.getElementById('telefonoMecanico').value = '{{mecanico.telefono}}';
+        document.getElementById('cargoMecanico').value = '{{mecanico.cargo}}';
+
+    vehiculo = '{{vehiculo.marca}}';
+    console.log(vehiculo)
+    console.log( '{{ vehiculo }}')
+    function SeleccionMecanico(id, nombre, apellido, correo, telefono, cargo){
+        document.getElementById('idMecanico').value = id;
+        document.getElementById('nombreMecanico').value = nombre;
+        document.getElementById('apellidoMecanico').value = apellido;
+        document.getElementById('emailMecanico').value = correo;
+        document.getElementById('telefonoMecanico').value = telefono;
+        document.getElementById('cargoMecanico').value = cargo;
+    }
+
+    function SeleccionVehiculo(id, placa, marca, modelo, anio){
+        var date = new Date(anio),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+        document.getElementById('idVehiculo').value = id;
+        document.getElementById('vehiculoPlaca').value = placa;
+        document.getElementById('vehiculoMarca').value = marca;
+        document.getElementById('vehiculoModelo').value = modelo;
+        document.getElementById("vehiculoAnio").value = [date.getFullYear(), mnth, day].join("-");
+    }
+</script>
+{% endblock js %}

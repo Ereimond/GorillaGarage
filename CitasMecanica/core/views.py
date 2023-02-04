@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from usuario.models import servicio
+from django.contrib.auth.models import User
 
 # Create your views here.
 @login_required
 def home(request):
-    servics = servicio.objects.all()
-    data = {
-        'servicios': servics
-    }
-    return render(request, "core/home.html", data)
+    usuario= get_object_or_404(User, pk=request.user.id)
+    role = []
+    if usuario.groups.filter(name='Clientes').exists():
+        role = "Cliente"
+    else:
+        role = "Mecánico"
+    data={'role': role}
+    return render(request, 'core/home.html', data)

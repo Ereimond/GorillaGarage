@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container p-3">
+<h1>Agregar Vehiculos</h1>
+<form method='post'>
+    {% csrf_token %}
+    <input class="hidden" type="hidden" name="duenio" id="id_duenio" value="{{ user.id }}">
+    <div class='mb-3'>
+    <label>Placa: </label>
+    {{vehiculoadd.placa}}
+    </div>
+    <div class='mb-3'>
+    <label>Marca:</label>
+    {{vehiculoadd.marca}}
+    </div>
+    <div class='mb-3'>
+    <label>Modelo:</label>
+    {{vehiculoadd.modelo}}
+    </div>
+    <div class='mb-3'>
+    <label>Año del Vehiculo</label>
+    {{vehiculoadd.anovehiculo}}
+    </div>
+    <a class="btn btn-secondary" href="{% url 'vehiculo' %}" role="button">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+</div>
+{% endblock %}

@@ -14,24 +14,45 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from core import views
+from django.urls import path, include
+from core import views as core
 from usuario import views as usuario
-from django.urls import include
 from django.conf import settings
+from vehiculo import views as vehiculo
+from mecanico import views as mecanico
+from cita import views as cita
+from django.contrib.auth import views as auth_views #import this
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('login/', usuario.autent, name='autent'),
-    path('registro/', usuario.registrar, name='registrar'),
+    path('', core.home, name="home"),
+    path('admin/', admin.site.urls), 
+    path('login/', usuario.autent, name='SignIn'),
+    path('registro/', usuario.registrar, name='SignUp'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('perfil/update/<id>/',usuario.profileupdate,name='profileupdate')
-    ,path('perfil/<id>/',usuario.renderprofile,name='profileuser')
-    ,path('vehiculo/',usuario.rendervehiculo,name='vehiculo')
-    ,path('vehiculoupdate/<id>/',usuario.vehiculoupdate,name='vehiculoupdate')
-    ,path('vehiculoadd/',usuario.vehiculoadd,name='vehiculoadd')
-    ,path('deletevehiculo/<id>/',usuario.deletevehiculo,name='deletevehiculo')
+    path('perfil/modificar/',usuario.profileupdate,name='profileUpdate'),
+    path('perfil/',usuario.renderprofile,name='profileUser'),
+    path('restablecer-contraseña/', auth_views.PasswordResetView.as_view(template_name="autenticacion/password-reset.html"), name='password_reset'),
+    path('restablecer-contraseña-enviado/', auth_views.PasswordResetDoneView.as_view(template_name="autenticacion/password_reset_done.html"), name='password_reset_done'),
+    path('restablecer/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name="autenticacion/password-confirm.html"), name='password_reset_confirm'),
+    path('restablecer-contraseña-completa/', auth_views.PasswordResetCompleteView.as_view(template_name="autenticacion/password_reset_complete.html"), name='password_reset_complete'),
+
+    #------------------------------------------------------------------------
+    
+    path('vehiculo/',vehiculo.rendervehiculo,name='vehiculo'),
+    path('vehiculo/modificar/',vehiculo.vehiculoupdate,name='vehiculoupdate'),
+    path('vehiculo/añadir/',vehiculo.vehiculoadd,name='vehiculoAdd'),
+    path('vehiculo/eliminar/<id>/',vehiculo.deletevehiculo,name='deletevehiculo'),
+
+    #------------------------------------------------------------------------
+    
+    path('mecanicos/',mecanico.mecanicos,name='mecanicos'),
+
+    #------------------------------------------------------------------------
+    
+    path('citas/',cita.renderCita,name='cita'),
+    path('citas/añadir',cita.citaAdd,name='citaAdd'),
+    path('citas/modificar/<id>/',cita.citaUpdate,name='citaUpdate'),
+    path('citas/eliminar/<id>/',cita.citaDelete,name='vehiculoDelete'),
 ]
 
 if settings.DEBUG:

@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+  }
+
 body{
-    background: #ffe259;
-    background: linear-gradient(to right, #c91111, #000000);
     overflow: visible;
 }
-
 
 
 .texto {
@@ -22,22 +25,37 @@ body{
     font-weight: 600;
 }
 
+.txt:hover, .texto:hover{
+    text-decoration:underline;
+    font-weight: bold;
+}
+
 .btn1{
     border: none;
     outline: none;
     height: 40px;
     width: 100%;
-    background-color: #00218d;
+    background-color: #FE33E5 !important;
     color: aliceblue;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: 8px;
 }
 
 .btn1:hover{
-    background-color: #0039f5;
+    background-color: #de1ac7 !important;
     color: white;
     border: 1px solid;
-    transition: all 0.8s;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.SignUp{
+    margin-bottom: 3rem !important;
+    box-shadow: 4px 4px 10px black;
+}
+
+.SignIn{
+    margin-top: 5rem !important;
+    box-shadow: 4px 4px 10px black;
 }
 
 #boton1 {
@@ -83,4 +101,8 @@ body{
 .container .row .col form #id_username, #id_password, #id_first_name, #id_last_name, #id_email, #id_password1, #id_password2{
     width: 100%;
     margin-bottom: 20px;
+}
+p{
+    margin-top: 0;
+    margin-bottom: 0;
 }

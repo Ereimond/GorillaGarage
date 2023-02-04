@@ -1,0 +1,61 @@
+{% extends 'autenticacion/base.html' %}
+
+{% block title %}Inicio de Sesión{% endblock title %}
+
+{% block form %}
+<div class="col bg-white p-5 rounded-end">
+    <h2 class="fw-bold text-center py-5">Inicio de Sesión</h2>
+    {% if form.errors %}
+                {% for field in form %}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <script>
+                    $.alert({
+                        title: '',
+                        theme:'material',
+                        type: 'red',
+                        content: '{{ error | escape }}'
+                    });
+                </script>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <script>
+                        $.alert({
+                            title: '¡Importante!',
+                            theme:'material',
+                            type: '#fffff',
+                            content: '{{ error | escape }}'
+                        });
+                </script>
+                {% endfor %}
+                {% endif %}
+            {% endif %}
+    <!--Login-->
+    <form method="POST" class="mb-2">
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label for="inlineFormInputGroupUsername" class="form-label">Nombre usuario</label>
+            {{ form.username }}
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword4" class="form-label">Contraseña</label>
+            {{ form.password }}
+        </div>
+        <div class="text-end mb-2">
+            <p class="recup"><a class="txt" href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn1 btn-primary">Iniciar Sesión</button>
+        </div>
+        <div class="my-3">
+            <span>¿No tienes cuenta? <a class="texto" href="{% url 'SignUp' %}">Registrarse</a> <br></span>
+        </div>
+    </form>
+</div>
+{% endblock form %}

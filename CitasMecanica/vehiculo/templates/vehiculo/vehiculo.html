@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container-xxl">
+    <h1>Vehiculos Ingresados</h1>
+    <div class="contenedorSobreponer">
+        <div class="sobrePoner">
+            {% if perms.vehiculo.add_vehiculo %}
+            <a class="btn btn-primary botonAceptar" href="{% url 'vehiculoAdd' %}" role="button"><i class="bi bi-car-front-fill"></i> Añadir</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row gx-4 row-cols-md-3 row-cols-xl-4">
+        {% for vehiculo in vehiculos %}
+            <div class="col ms-md-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        {{vehiculo.placa}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">{{vehiculo.marca}}</h5>
+                        <p class="card-text mt-2">{{vehiculo.modelo}} <br>
+                        {{vehiculo.anovehiculo}}</p>
+                        <div class="d-grid gap-2 d-flex justify-content-center ">
+                            <a type="button" onclick="editvehiculo( '{{vehiculo.id}}', '{{vehiculo.placa}}', '{{vehiculo.marca}}', '{{vehiculo.modelo}}', `{{vehiculo.anovehiculo|date:'Y/m/d'}}`)" class="btn btn-primary botonAceptar btn-sm m-md-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-pencil-square"></i></a>
+                            <a type="button" onclick="deletevehiculo('{{vehiculo.id}} ')" class="btn btn-danger btn-sm m-md-2 botonEliminar"><i class="bi bi-trash3"></i></a>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block modales %}{% include "vehiculo/vehiculoUpdate.html" %}{% endblock modales %}
+
+{% block js %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function editvehiculo(id, placa,marca, modelo, anovehiculo){
+        var date = new Date(anovehiculo),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+            document.getElementById('idVehiculo').value = id;
+            document.getElementById('placaedit').value = placa;
+            document.getElementById('marcaedit').value = marca;
+            document.getElementById('modeloedit').value = modelo;
+            document.getElementById("anovehiculoedit").value=[date.getFullYear(), mnth, day].join("-");
+    console.log(date)
+  console.log([date.getFullYear(), mnth, day].join("-"));
+    }
+     
+    function deletevehiculo(id) {
+        Swal.fire({
+            "title": `¿Desea Eliminar Vehiculo?`,
+            "icon": "question",
+            'text':``,
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Eliminar",
+            "reverseButtons": true,
+            "cancelButtonColor": "#934d85",
+            "confirmButtonColor": "#FE33E5"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/vehiculo/eliminar/"+id+"/"
+            }
+        })
+    }
+
+</script>
+{% endblock js %}

@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Citas{% endblock %}
+
+{% block content %}
+<div class="container-xxl">
+    <h1>Citas Agendadas</h1>
+    <div class="contenedorSobreponer">
+        <div class="sobrePoner">
+            {% if role != 'Mecánico' %}
+            <a class="btn btn-primary botonAceptar" href="{% url 'citaAdd' %}" role="button"><i class="bi bi-plus-lg"></i>&nbsp; Agrendar Cita</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row gx-4 row-cols-md-3 row-cols-xl-4">
+        {% for cita in citas %}
+        <div class="col ms-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title mb-2 text-center">Cita</h5>
+                    <h6 class="card-title mb-1">Agendada el {{cita.ingreso|date:'d/m/Y' }}</h6>
+                    {% if role != 'Cliente' %}
+                    <h6 class="card-text mt-2 pb-0 mb-0">Cliente:</h6>    
+                    <h6 class="mt-0 ms-2">{{cita.cliente.user.first_name}} {{cita.cliente.user.last_name}}</h6>
+                    <h6 class="mt-0 ms-2">{{cita.cliente.telefono}}</h6>
+                    <h6 class="mt-0 ms-2 mb-2">{{cita.cliente.user.email}}</h6>
+                    {% endif %}
+                    {% if role == 'Cliente' %}
+                    <p class="card-text mt-2 pb-0 mb-0">Mecánico:</p> 
+                    <h6 class="mt-0 ms-2">{{cita.mecanico.user.first_name}} {{cita.mecanico.user.last_name}}</h6>
+                    <h6 class="mt-0 ms-2">{{cita.mecanico.telefono}}</h6>
+                    <h6 class="mt-0 ms-2 mb-2">{{cita.mecanico.user.email}}</h6>
+                    {% endif %}
+                    <p class="card-text mt-2 pb-0 mb-0">Vehículo:</p> 
+                    <h6 class="mt-0 ms-2">Marca: {{cita.vehiculo.marca}}</h6>
+                    <h6 class="mt-0 ms-2 mb-2">Modelo: {{cita.vehiculo.modelo}}</h6> 
+                    <h6 class="card-title mb-1">Fecha de entrega {{cita.ingreso|date:'d/m/Y' }}</h6>
+                    {% if role != 'Mecánico' %}
+                    <div class="d-grid gap-2 d-flex justify-content-center ">
+                        <a role="button" class="btn btn-danger btn-sm m-md-2 botonAceptar" href="{% url 'citaUpdate' cita.id %}"><i class="bi bi-pencil-square"></i></a>
+                        <a type="button" onclick="citaDelete('{{cita.id}} ')"  class="btn btn-danger botonEliminar btn-sm m-md-2"><i class="bi bi-trash3"></i></a>
+                    </div>    
+                    {% endif %}                
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function citaDelete(id) {
+        Swal.fire({
+            "title": `¿Desea eliminar la Cita?`,
+            "icon": "question",
+            'text':``,
+            "showCancelButton": true,
+            "cancelButtonText": "Cancelar",
+            "confirmButtonText": "Eliminar",
+            "reverseButtons": true,
+            "cancelButtonColor": "#934d85",
+            "confirmButtonColor": "#FE33E5"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/citas/eliminar/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock js %}

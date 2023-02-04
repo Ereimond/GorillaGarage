@@ -1,8 +1,9 @@
-from tkinter.ttk import Widget
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from.models import profile, vehiculo
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .models import Profile
+from mecanico.models import Mecanico
+
 class UserCreationForm(UserCreationForm):
     username=forms.CharField(
         widget=forms.TextInput(
@@ -96,7 +97,7 @@ class profileform(forms.ModelForm):
                 'class': 'form-control',
                 'type' : "text",
                 'id' : "ocupacion",
-                'placeholder' : " "
+                'placeholder' : "Ocupación"
             }
         )
     )
@@ -106,7 +107,7 @@ class profileform(forms.ModelForm):
                 'class': 'form-control',
                 'type' : "text",
                 'id' : "telefono",
-                'placeholder' : ""
+                'placeholder' : "Teléfono"
             }
         )
     )
@@ -116,7 +117,7 @@ class profileform(forms.ModelForm):
                 'class': 'form-control',
                 'type' : "text",
                 'id' : "direccion",
-                'placeholder' : " "
+                'placeholder' : "Dirección"
             }
         )
     )
@@ -126,14 +127,14 @@ class profileform(forms.ModelForm):
                 'class': 'form-control',
                 'type' : "date",
                 'id' : "fechanacimiento",
-                'placeholder' : " "
+                'placeholder' : "Fecha de Nacimiento"
             }
         )
     )
 
 
     class Meta:
-        model=profile 
+        model=Profile 
         exclude=['user']
         fields=['direccion','ocupacion','fechanacimiento','telefono']
 
@@ -162,95 +163,58 @@ class userupdate(forms.ModelForm):
         model=User
         fields=['first_name','last_name']
 
-class vehiculoforms(forms.ModelForm):
-    placa=forms.CharField(
+class mecanicoform(forms.ModelForm):
+    cargo=forms.CharField(
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'type' : "text",
-                'id' : "placa",
-                'placeholder' : " "
+                'id' : "cargo",
+                'placeholder' : "Cargo"
             }
         )
     )
-    marca=forms.CharField(
+    telefono=forms.CharField(
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'type' : "text",
-                'id' : "marca",
-                'placeholder' : " "
+                'id' : "telefono",
+                'placeholder' : "Teléfono"
             }
         )
     )
-    modelo=forms.CharField(
+    direccion=forms.CharField(
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'type' : "text",
-                'id' : "modelo",
-                'placeholder' : " "
+                'id' : "direccion",
+                'placeholder' : "Dirección"
             }
         )
     )
-
-    anovehiculo=forms.DateField(
+    fechanacimiento=forms.DateField(
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'type' : "date",
-                'id' : "anovehiculo",
-                'placeholder' : " "
-            }
-        )
-    )
-    
-    class Meta:
-        model=vehiculo
-        fields=['duenio','placa','marca','modelo','anovehiculo']
-
-class vehiculoupdateform(forms.ModelForm):
-    placa=forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'type' : "text",
-                'id' : "placaedit",
-                'placeholder' : " "
-            }
-        )
-    )
-    marca=forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'type' : "text",
-                'id' : "marcaedit",
-                'placeholder' : " "
-            }
-        )
-    )
-    modelo=forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'type' : "text",
-                'id' : "modeloedit",
-                'placeholder' : " "
+                'id' : "fechanacimiento",
+                'placeholder' : "Fecha de Nacimiento"
             }
         )
     )
 
-    anovehiculo=forms.DateField(
-        widget=forms.TextInput(
-            attrs={
+    imagen = forms.ImageField(
+        widget=forms.FileInput(
+        attrs={
                 'class': 'form-control',
-                'type' : "date",
-                'id' : "anovehiculoedit",
-                'placeholder' : " "
-            }
-        )
+                'type':'file',
+                'id' : "imagen",
+                'placeholder' : "Foto de Perfil"
+        })
     )
     class Meta:
-        model=vehiculo
-        fields=['placa','marca','modelo','anovehiculo']
+        model=Mecanico 
+        exclude=['user']
+        fields=['imagen','direccion','cargo','fechanacimiento','telefono']
